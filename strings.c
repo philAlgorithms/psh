@@ -3,17 +3,17 @@
 /**
  * _strlen - gets the length of a string
  * @s: pointer to the string
- * 
+ *
  * Return: length of the string
-*/
+ */
 int _strlen(char *s)
 {
-    size_t len = 0;
+	size_t len = 0;
 
-    while (*s++)
-        len++;
+	while (*s++)
+		len++;
 
-    return (len);
+	return (len);
 }
 
 /**
@@ -27,14 +27,14 @@ int _strlen(char *s)
  */
 int tok_size(char *str, char *delim)
 {
-    int size = 0, i = 0;
+	int size = 0, i = 0;
 
-    while (str[i] != *delim && str[i] != '\0')
-    {
-        size++;
-        i++;
-    }
-    return (size);
+	while (str[i] != *delim && str[i] != '\0')
+	{
+		size++;
+		i++;
+	}
+	return (size);
 }
 
 /**
@@ -47,20 +47,20 @@ int tok_size(char *str, char *delim)
  */
 int tok_count(char *str, char *delim)
 {
-    int i, num = 0, len = 0;
+	int i, num = 0, len = 0;
 
-    len = _strlen(str);
+	len = _strlen(str);
 
-    for (i = 0; i < len; i++)
-    {
-        if (*(str + i) != *delim)
-        {
-            num++;
-            i += tok_size(str + i, delim);
-        }
-    }
+	for (i = 0; i < len; i++)
+	{
+		if (*(str + i) != *delim)
+		{
+			num++;
+			i += tok_size(str + i, delim);
+		}
+	}
 
-    return (num);
+	return (num);
 }
 
 /**
@@ -72,43 +72,43 @@ int tok_count(char *str, char *delim)
  */
 char **_stringtok(char *line, char *delim)
 {
-    char **tokens;
-    int i = 0, num, n, token_length, l;
+	char **tokens;
+	int i = 0, num, n, token_length, l;
 
-    num = tok_count(line, delim);
-    if (num == 0)
-        return (NULL);
+	num = tok_count(line, delim);
+	if (num == 0)
+		return (NULL);
 
-    tokens = malloc(sizeof(char *) * (num + 2));
-    if(!tokens)
-        return(NULL);
+	tokens = malloc(sizeof(char *) * (num + 2));
+	if (!tokens)
+		return (NULL);
 
-    for (n = 0; n < num; n++)
-    {
-        while (line[i] == *delim)
-            i++;
-        
-        token_length = tok_size(line + i, delim);
+	for (n = 0; n < num; n++)
+	{
+		while (line[i] == *delim)
+			i++;
 
-        tokens[n] = malloc(sizeof(char) * (token_length + 1));
-        if(!tokens[n])
-        {
-            for (i -= 1; i >= 0; i--)
-                free(tokens[i]);
-            free(tokens);
-            return (NULL);
-        }
+		token_length = tok_size(line + i, delim);
 
-        for (l = 0; l < token_length; l++)
-        {
-            tokens[n][l] = line[i];
-            i++;
-        }
-        tokens[n][l] = '\0';
-    }
+		tokens[n] = malloc(sizeof(char) * (token_length + 1));
+		if (!tokens[n])
+		{
+			for (i -= 1; i >= 0; i--)
+				free(tokens[i]);
+			free(tokens);
+			return (NULL);
+		}
 
-    tokens[n] = NULL;
-    tokens[n + 1] = NULL;
+		for (l = 0; l < token_length; l++)
+		{
+			tokens[n][l] = line[i];
+			i++;
+		}
+		tokens[n][l] = '\0';
+	}
 
-    return (tokens);
+	tokens[n] = NULL;
+	tokens[n + 1] = NULL;
+
+	return (tokens);
 }

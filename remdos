@@ -1,5 +1,5 @@
 #!/bin/bash
 for file in *.*
 do
-	vi +': ++ff=unix' +':q' "$file"
+	vi +':w ++ff=unix' +':q' "$file"
 done
